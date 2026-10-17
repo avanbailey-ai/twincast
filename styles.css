@@ -219,6 +219,10 @@ section { padding: 80px 0; scroll-margin-top: 64px; }
 .expand .step.now { background: var(--violet); color: #fff; border-color: var(--violet); }
 .disclaimer { font-size: 13px; color: var(--muted); margin-top: 14px; font-style: italic; }
 
+/* Founding Cast */
+.cast-grid { display: grid; gap: 14px; }
+@media (min-width: 760px) { .cast-grid { grid-template-columns: 1fr 1fr; } }
+
 /* ---------- Waitlist ---------- */
 .waitlist { background: var(--ink); color: #fff; position: relative; overflow: hidden; }
 .waitlist::before { content: ""; position: absolute; left: 50%; top: -200px; transform: translateX(-50%); width: 900px; height: 500px; background: radial-gradient(closest-side, rgba(107,61,245,.35), transparent); pointer-events: none; }
