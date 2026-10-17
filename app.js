@@ -24,7 +24,7 @@
    *  put it in this file. Send to your own server/serverless function and
    *  call the provider from there.)
    */
-  var WAITLIST_ENDPOINT = 'https://formsubmit.co/ajax/avanbailey@gmail.com'; // Live: FormSubmit -> avanbailey@gmail.com (activated for this site)
+  var WAITLIST_ENDPOINT = 'https://formsubmit.co/ajax/e5f8cc3acad93250d9c1eec92fcf1741'; // Live: FormSubmit (activated; alias hides owner email, delivers to owner Gmail)
 
   /* ========================================================================
      >>> INTEGRATION POINT: the ONE function to change. <<<
