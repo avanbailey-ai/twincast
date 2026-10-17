@@ -2,10 +2,10 @@
    Twincast landing page — waitlist + UI behaviour
    Plain JS, no dependencies, no build step.
 
-   IMPORTANT: NO LIVE BACKEND IS CONNECTED.
-   Signups are validated in the browser and saved to this browser's
-   localStorage only (key: "twincast_waitlist_v1"). Nothing leaves the
-   device until you wire up sendToWaitlistProvider() below.
+   LIVE BACKEND CONNECTED via FormSubmit (see WAITLIST_ENDPOINT below).
+   Signups are validated, POSTed to FormSubmit which emails them to the
+   site owner, and also saved to this browser's localStorage as a backup
+   (key: "twincast_waitlist_v1").
    ========================================================================== */
 (function () {
   'use strict';
@@ -24,7 +24,7 @@
    *  put it in this file. Send to your own server/serverless function and
    *  call the provider from there.)
    */
-  var WAITLIST_ENDPOINT = null; // TODO: set to your form endpoint URL
+  var WAITLIST_ENDPOINT = 'https://formsubmit.co/ajax/avanbailey@gmail.com'; // Live: FormSubmit -> avanbailey@gmail.com (activated for this site)
 
   /* ========================================================================
      >>> INTEGRATION POINT: the ONE function to change. <<<
@@ -59,10 +59,15 @@
       console.info('[Twincast] No WAITLIST_ENDPOINT set. Signup stored locally only.', payload);
       return { ok: true, localOnly: true };
     }
+    var body = Object.assign({}, payload, {
+      _subject: 'Twincast waitlist: ' + payload.type + ' — ' + payload.name,
+      _template: 'table',
+      _captcha: 'false'
+    });
     var res = await fetch(WAITLIST_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(body)
     });
     if (!res.ok) throw new Error('Signup failed with status ' + res.status);
     return { ok: true, localOnly: false };
